@@ -16,6 +16,6 @@ brain_node:
     enable_com: true
 
     rerunLog:
-      enable: false
+      enable: true
       server_addr: "127.0.0.1:9876"
       img_interval: 1

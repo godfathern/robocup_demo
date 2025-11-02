@@ -1,11 +1,14 @@
-#include "booster_vision/model//detector.h"
+#include "booster_vision/model/detector.h"
 
 #include <stdexcept>
 #include <filesystem>
 
-#include "booster_vision/model//trt/impl.h"
+#include "booster_vision/model/trt/impl.h"
+
 
 namespace booster_vision {
+
+class YoloV8Detector;
 
 const std::vector<std::string> YoloV8Detector::kClassLabels{"Ball", "Goalpost", "Person", "LCross",
                                                             "TCross", "XCross", "PenaltyPoint", "Opponent", "BRMarker"};
@@ -15,7 +18,7 @@ std::shared_ptr<YoloV8Detector> YoloV8Detector::CreateYoloV8Detector(const YAML:
         std::string model_path = node["model_path"].as<std::string>();
         float conf_thresh = node["confidence_threshold"].as<float>();
 
-        return std::shared_ptr<YoloV8Detector>(new YoloV8DetectorTRT(model_path, conf_thresh));
+        return std::make_shared<YoloV8DetectorTRT>(model_path, conf_thresh);
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
         return nullptr;

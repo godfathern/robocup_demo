@@ -5,7 +5,7 @@ cd ..
 
 ./scripts/sim_stop.sh
 
-source ./install/setup.bash
+source ~/Desktop/robocup_demo/install/setup.bash
 export FASTRTPS_DEFAULT_PROFILES_FILE=./configs/fastdds.xml
 
 nohup ros2 run joy joy_node --ros-args -p autorepeat_rate:=0.0 > joystick.log 2>&1 &

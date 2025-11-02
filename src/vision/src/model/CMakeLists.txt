@@ -14,6 +14,10 @@ else()
   link_directories(/usr/local/TensorRT-8.6.1.6/lib)
 endif()
 
+# project includes
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../include)
+
+
 add_subdirectory(trt)
 
 add_library(yolov8_model SHARED detector.cc)

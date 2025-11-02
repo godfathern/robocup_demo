@@ -3,7 +3,8 @@
 #include "utils/math.h"
 #include "utils/print.h"
 
-BrainLog::BrainLog(Brain *argBrain) : enabled(false), brain(argBrain), rerunLog("robocup")
+BrainLog::BrainLog(Brain *argBrain)
+    : enabled(false), brain(argBrain), rerunLog("robocup")
 {
     if (!brain->config->rerunLogEnable)
     {
@@ -11,7 +12,8 @@ BrainLog::BrainLog(Brain *argBrain) : enabled(false), brain(argBrain), rerunLog(
         return;
     }
 
-    rerun::Error err = rerunLog.connect(brain->config->rerunLogServerAddr);
+    // New Rerun SDK (>=0.20): no SpawnOptions needed
+    rerun::Error err = rerunLog.spawn();
     if (err.is_err())
     {
         prtErr("Connect rerunLog server failed: " + err.description);
@@ -21,6 +23,8 @@ BrainLog::BrainLog(Brain *argBrain) : enabled(false), brain(argBrain), rerunLog(
 
     enabled = true;
 }
+
+
 
 void BrainLog::setTimeNow()
 {
@@ -35,8 +39,9 @@ void BrainLog::setTimeSeconds(double seconds)
     if (!enabled)
         return;
 
-    rerunLog.set_time_seconds("time", seconds);
+    rerunLog.set_time_duration_secs("time", seconds);
 }
+
 
 void BrainLog::logStatics()
 {

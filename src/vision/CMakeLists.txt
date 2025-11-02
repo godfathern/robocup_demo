@@ -17,6 +17,13 @@ find_package(tf2 REQUIRED)
 find_package(builtin_interfaces REQUIRED)
 find_package(vision_interface REQUIRED)
 
+include(FetchContent)
+FetchContent_Declare(rerun_sdk URL
+    https://github.com/rerun-io/rerun/releases/latest/download/rerun_cpp_sdk.zip)
+FetchContent_MakeAvailable(rerun_sdk)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
 include_directories(
     ${PROJECT_SOURCE_DIR}/include
     ${OpenCV_INCLUDE_DIRS}
@@ -35,3 +42,4 @@ install(DIRECTORY config
 
 ament_export_include_directories(include)
 ament_package()
+
